@@ -1,0 +1,37 @@
+<!-- templates/edit_profile.html -->
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile - FriendZone+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>Edit Profile</h1>
+            <p>Update your information</p>
+        </div>
+        
+        <form method="post" class="profile-form">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="form-errors">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {{ form.as_p }}
+            
+            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+        </form>
+        
+        <div class="form-footer">
+            <a href="{% url 'home' %}">← Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

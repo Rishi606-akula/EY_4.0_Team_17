@@ -1,0 +1,33 @@
+<!-- templates/login.html -->
+{% extends 'base.html' %}
+
+{% block title %}Login - FriendZone+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to your account</p>
+        </div>
+        
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="form-errors">
+                    <p class="error">Invalid username or password.</p>
+                </div>
+            {% endif %}
+            
+            {{ form.as_p }}
+            
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+        
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="{% url 'register' %}">Create one</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

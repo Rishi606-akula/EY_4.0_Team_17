@@ -1,0 +1,46 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FriendZone+ - Connect with Purpose{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Connect with Purpose</h1>
+        <p class="hero-description">
+            Discover meaningful connections based on shared interests. 
+            Join activities, meet like-minded people, and build a community 
+            that truly understands you.
+        </p>
+        <div class="hero-actions">
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Get Started</a>
+            <a href="{% url 'login' %}" class="btn btn-outline btn-lg">Sign In</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-circle"></div>
+        <div class="hero-circle small"></div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Interest-Based</h3>
+            <p>Connect with people who share your passions and hobbies.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Activities</h3>
+            <p>Join local events and activities that match your interests.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <h3>Community</h3>
+            <p>Build lasting relationships with verified members.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- templates/create_activity.html -->
+{% extends 'base.html' %}
+
+{% block title %}Create Activity - FriendZone+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>Create Activity</h1>
+            <p>Share an event with the community</p>
+        </div>
+        
+        <form method="post" class="activity-form">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="form-errors">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {{ form.as_p }}
+            
+            <button type="submit" class="btn btn-primary btn-block">Create Activity</button>
+        </form>
+        
+        <div class="form-footer">
+            <a href="{% url 'discover' %}">← Back to Discover</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

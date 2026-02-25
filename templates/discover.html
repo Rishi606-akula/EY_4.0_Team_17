@@ -1,0 +1,88 @@
+<!-- templates/discover.html -->
+{% extends 'base.html' %}
+
+{% block title %}Discover - FriendZone+{% endblock %}
+
+{% block content %}
+<div class="discover-container">
+    <div class="discover-header">
+        <h1>Discover</h1>
+        <p>Find people and activities that match your interests</p>
+    </div>
+    
+    <div class="discover-grid">
+        <!-- Users Section -->
+        <section class="discover-section">
+            <h2>People</h2>
+            {% if users %}
+                <div class="cards-grid">
+                    {% for profile in users %}
+                        <div class="card user-card">
+                            <div class="card-header">
+                                <div class="user-avatar">
+                                    {{ profile.user.username|make_list|first|upper }}
+                                </div>
+                                <div class="user-info">
+                                    <h3>{{ profile.user.username }}</h3>
+                                    {% if profile.verified %}
+                                        <span class="badge verified">Verified</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="user-city">{{ profile.city }}</p>
+                                {% if profile.interests %}
+                                    <p class="user-interests">{{ profile.interests|truncatechars:80 }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'send_connection' profile.user.id %}" class="btn btn-sm btn-outline">Connect</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">No users found</p>
+            {% endif %}
+        </section>
+        
+        <!-- Activities Section -->
+        <section class="discover-section">
+            <h2>Activities</h2>
+            {% if activities %}
+                <div class="cards-grid">
+                    {% for activity in activities %}
+                        <div class="card activity-card">
+                            <div class="card-header">
+                                <h3>{{ activity.title }}</h3>
+                                {% if activity.is_active %}
+                                    <span class="badge active">Active</span>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <p class="activity-description">{{ activity.description|truncatechars:100 }}</p>
+                                <div class="activity-meta">
+                                    <span class="meta-item">📍 {{ activity.city }}</span>
+                                    <span class="meta-item">📅 {{ activity.date }}</span>
+                                    <span class="meta-item">🕐 {{ activity.time }}</span>
+                                </div>
+                                <p class="activity-creator">By {{ activity.creator.username }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <span class="participants-count">{{ activity.participants.count }} joined</span>
+                                {% if request.user not in activity.participants.all %}
+                                    <a href="{% url 'join_activity' activity.id %}" class="btn btn-sm btn-primary">Join</a>
+                                {% else %}
+                                    <span class="badge joined">Joined</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">No activities available</p>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}
